@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
+ 
+  "build": "babel examples --out-dir dist --extensions .jsx --copy-files && cp src/utils.js dist/utils.js",
+  "serve": "live-server dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +18,12 @@
     "url": "https://github.com/SauravNaruka/react-lite/issues"
   },
   "homepage": "https://github.com/SauravNaruka/react-lite#readme",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "@babel/cli": "^7.27.2",
+    "@babel/core": "^7.27.1",
+    "@babel/preset-react": "^7.27.1",
+    "live-server": "^1.2.2"
+  }
+
 }
