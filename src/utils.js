@@ -8,13 +8,16 @@ export let render = hooks => (Component = _Component, root = _root) => {
   } else {
     _hooks = JSON.stringify(hooks);
   }
+
   // nuke the existing rendered elements
   while (root.firstChild) {
     root.removeChild(root.firstChild);
   }
+
   const Comp = reconcile(Component, root);
   _Component = Component;
   _root = root;
+
   const dom = createDom(Comp);
   // mount the new ones
   root.appendChild(dom);
@@ -31,6 +34,7 @@ export function createElement(type, props, ...children) {
     }
   };
 }
+
 function createTextElement(text) {
   return {
     type: "TEXT_ELEMENT",
@@ -47,8 +51,10 @@ export function createDom(fiber) {
     fiber.type === "TEXT_ELEMENT"
       ? document.createTextNode("")
       : document.createElement(fiber.type);
+
   const props = fiber.props || {};
   updateDom(dom, {}, props);
+
   if (props.children) {
     props.children.forEach(child => {
       // recursion
@@ -67,6 +73,7 @@ const isEvent = key => key.startsWith("on");
 const isProperty = key => key !== "children" && !isEvent(key);
 const isNew = (prev, next) => key => prev[key] !== next[key];
 const isGone = (prev, next) => key => !(key in next);
+
 function updateDom(dom, prevProps, nextProps) {
   //Remove old or changed event listeners
   Object.keys(prevProps)
@@ -106,7 +113,9 @@ export function reconcile(Component, root) {
   if (Array.isArray(Component)) {
     return Component.map(child => reconcile(child, root));
   }
+
   const Comp = typeof type === "string" ? Component : type();
+
   if (Comp.props && Comp.props.children) {
     Comp.props.children.forEach((child, idx) => {
       if (typeof child.type !== "string") {

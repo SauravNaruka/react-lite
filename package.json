@@ -3,8 +3,7 @@
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
- 
-  "build": "babel examples --out-dir dist --extensions .jsx --copy-files && cp src/utils.js dist/utils.js",
+ "build": "babel src --out-dir dist --extensions .js,.jsx",
   "serve": "live-server dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
